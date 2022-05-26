@@ -11,26 +11,33 @@ namespace Heist
         
             List<Member> MemberList = new List<Member>();
 
+            int BankDifficultyLevel = 100;
+            int TeamSkillSum = 0;
+
             AddNewMember();
             DisplayNumOfMembers();
             CompareTeamToBank();
 
+            int luckValue = new Random().Next(-10,10);
+            BankDifficultyLevel += luckValue;
+
+
 
             void CompareTeamToBank()
             {
-                int BankDifficultyLevel = 100;
-                int TeamSkillSum = 0;
                 foreach(Member mem in MemberList)
                 {
                     TeamSkillSum += mem.SkillLevel;
                 }
+                Console.WriteLine($"Your team's combined skill level is {TeamSkillSum}");
+                Console.WriteLine($"The bank's difficulty level is {BankDifficultyLevel}");
                 if(TeamSkillSum > BankDifficultyLevel)
                 {
-                    Console.WriteLine("Success! Your team's skill level was greater than the bank's difficulty!");
+                    Console.WriteLine("SUCCESS! Your team's skill level was greater than the bank's difficulty!");
                 }
                 else
                 {
-                    Console.WriteLine("Failure! Your team's skill level was less than the bank's difficulty.");
+                    Console.WriteLine("FAILURE! Your team's skill level was less than the bank's difficulty.");
                 }
             }
 
