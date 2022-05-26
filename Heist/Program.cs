@@ -10,35 +10,56 @@ namespace Heist
             Console.WriteLine("Plan Your Heist!");
         
             List<Member> MemberList = new List<Member>();
-
-            int BankDifficultyLevel = 100;
-            int TeamSkillSum = 0;
+            int successfulRuns = 0;
+            int unsuccessfulRuns = 0;
 
             AddNewMember();
             DisplayNumOfMembers();
-            CompareTeamToBank();
 
-            int luckValue = new Random().Next(-10,10);
-            BankDifficultyLevel += luckValue;
+            Console.WriteLine("How many trial runs would you like to try?");
+            int TrialRuns = int.Parse(Console.ReadLine());
+            Console.WriteLine("Please Enter the Banks Difficulty Level.");
+            int BankDifficultyLevel = int.Parse(Console.ReadLine());
 
+            int BankDifficultyCheck = BankDifficultyLevel;
+            int TeamSkillSum = 0;
 
-
-            void CompareTeamToBank()
+            for(int i=0; i<TrialRuns; i++)
             {
+                AttemptHeist();
+            }
+            Console.WriteLine($"Heist Summary: Your team completed {successfulRuns} successful heists and {unsuccessfulRuns} failed heists.");
+            Console.WriteLine("---------------------------------------------------");
+
+
+
+
+
+            void AttemptHeist()
+            {
+                int luckValue = new Random().Next(-10,10);
+                BankDifficultyLevel += luckValue;
+
                 foreach(Member mem in MemberList)
                 {
                     TeamSkillSum += mem.SkillLevel;
                 }
-                Console.WriteLine($"Your team's combined skill level is {TeamSkillSum}");
-                Console.WriteLine($"The bank's difficulty level is {BankDifficultyLevel}");
+                Console.WriteLine($"Your team's combined skill level is {TeamSkillSum}.");
+                Console.WriteLine($"The bank's difficulty level is {BankDifficultyLevel}.");
                 if(TeamSkillSum > BankDifficultyLevel)
                 {
                     Console.WriteLine("SUCCESS! Your team's skill level was greater than the bank's difficulty!");
+                    successfulRuns++;
                 }
                 else
                 {
                     Console.WriteLine("FAILURE! Your team's skill level was less than the bank's difficulty.");
+                    unsuccessfulRuns++;
                 }
+                Console.WriteLine("---------------------------------------------------");
+
+                BankDifficultyLevel = BankDifficultyCheck;
+                TeamSkillSum = 0;
             }
 
 
