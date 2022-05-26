@@ -12,8 +12,28 @@ namespace Heist
             List<Member> MemberList = new List<Member>();
 
             AddNewMember();
-            DisplayMemberList();
             DisplayNumOfMembers();
+            CompareTeamToBank();
+
+
+            void CompareTeamToBank()
+            {
+                int BankDifficultyLevel = 100;
+                int TeamSkillSum = 0;
+                foreach(Member mem in MemberList)
+                {
+                    TeamSkillSum += mem.SkillLevel;
+                }
+                if(TeamSkillSum > BankDifficultyLevel)
+                {
+                    Console.WriteLine("Success! Your team's skill level was greater than the bank's difficulty!");
+                }
+                else
+                {
+                    Console.WriteLine("Failure! Your team's skill level was less than the bank's difficulty.");
+                }
+            }
+
 
             void AddNewMember()
             {
@@ -54,18 +74,7 @@ namespace Heist
             void DisplayNumOfMembers()
             {
                 Console.WriteLine($"Numer of Members: {MemberList.Count}");
-            }
-
-            void DisplayMemberList()
-            {
-                Console.WriteLine("Member List:");
-
-                foreach(Member mem in MemberList)
-                {
-                    Console.WriteLine($"{mem.Name} has a skill level of {mem.SkillLevel} and a courage factor of {mem.CourageFactor}");
-                }
-            }
-            
+            }            
         
         }
     }
