@@ -10,29 +10,25 @@ namespace Heist
             Console.WriteLine("Plan Your Heist!");
         
             List<Member> MemberList = new List<Member>();
-            int successfulRuns = 0;
-            int unsuccessfulRuns = 0;
 
-            AddNewMember();
-            DisplayNumOfMembers();
+            AddNewMember(); 
 
             Console.WriteLine("How many trial runs would you like to try?");
             int TrialRuns = int.Parse(Console.ReadLine());
             Console.WriteLine("Please Enter the Banks Difficulty Level.");
             int BankDifficultyLevel = int.Parse(Console.ReadLine());
-
-            int BankDifficultyCheck = BankDifficultyLevel;
+            int Mirror = BankDifficultyLevel; //set additional variable equal to initial value of BankDifficultyLevel. 
+            
+            int successfulRuns = 0;
+            int unsuccessfulRuns = 0;
             int TeamSkillSum = 0;
 
             for(int i=0; i<TrialRuns; i++)
             {
                 AttemptHeist();
             }
-            Console.WriteLine($"Heist Summary: Your team completed {successfulRuns} successful heists and {unsuccessfulRuns} failed heists.");
+            Console.WriteLine($"Post-Heist Summary: {successfulRuns} successful heists and {unsuccessfulRuns} failed heists.");
             Console.WriteLine("---------------------------------------------------");
-
-
-
 
 
             void AttemptHeist()
@@ -58,10 +54,9 @@ namespace Heist
                 }
                 Console.WriteLine("---------------------------------------------------");
 
-                BankDifficultyLevel = BankDifficultyCheck;
+                BankDifficultyLevel = Mirror;
                 TeamSkillSum = 0;
             }
-
 
             void AddNewMember()
             {
@@ -97,12 +92,7 @@ namespace Heist
                 {
                     return;
                 }
-            }
-
-            void DisplayNumOfMembers()
-            {
-                Console.WriteLine($"Numer of Members: {MemberList.Count}");
-            }            
+            }          
         
         }
     }
