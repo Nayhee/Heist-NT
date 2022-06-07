@@ -8,9 +8,9 @@ namespace Heist
         public int PercentageCut {get; set;}
         public void PerformSkill(Bank bank)
         {
-            AlarmScore = AlarmScore - SkillLevel;
+            bank.AlarmScore = bank.AlarmScore - SkillLevel;
             Console.WriteLine($"{Name} is hacking the alarm system. Decreased alarm security by {SkillLevel}.");
-            if(AlarmScore <= 0)
+            if(bank.AlarmScore <= 0)
             {
                 Console.WriteLine($"Mr. {Name} has successfully disabled the alarm system.");
             }

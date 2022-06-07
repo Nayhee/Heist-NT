@@ -7,6 +7,6 @@ namespace Heist
         string Name {get;}
         int SkillLevel {get;}
         int PercentageCut {get;}
-        void PerformSkill(Bank bank);
+        void PerformSkill(Bank bank){}
     }
 }

@@ -8,9 +8,9 @@ namespace Heist
         public int PercentageCut {get; set;}
         public void PerformSkill(Bank bank)
         {
-            VaultScore = VaultScore - SkillLevel;
+            bank.VaultScore = bank.VaultScore - SkillLevel;
             Console.WriteLine($"{Name} is cracking the Vault. Decreased vault security by {SkillLevel}.");
-            if(VaultScore <= 0)
+            if(bank.VaultScore <= 0)
             {
                 Console.WriteLine($"Mr. {Name} has successfully cracked the vault.");
             }

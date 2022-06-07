@@ -48,40 +48,53 @@ namespace Heist
                     PercentageCut = 10
                 }
             };
-            
-            Console.WriteLine($"Current Number of Operatives in the Rolodex: {rolodex.Count}");
 
-            Console.Write("Enter the name of a new member you would like to add:");
-            string newMemName = Console.ReadLine();
-            Console.Write("Enter 1, 2, or 3 to select a specialty for the new member. ( 1 - Hacker (disables alarms), 2 - Muscle (disarms guards), 3 - Lock Specialist (cracks vault)): ");
-            int newMemSpecialty = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter the new members skill level (1 - 100): ");
-            int newMemSkillLevel = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter the % cut for the new member: ");
-            int newMemberCut = int.Parse(Console.ReadLine());
-            
-            switch(newMemSpecialty)
+            void AddNewMember()
             {
-                case 1:
+                Console.WriteLine($"Current Number of Operatives in the Rolodex: {rolodex.Count}");
+
+                Console.Write("Enter the name of a new member you would like to add: ");
+                string newMemName = Console.ReadLine();
+
+                if(newMemName != "")
                 {
-                    rolodex.Add(new Hacker {Name = $"{newMemNam}", SkillLevel = newMemSkillLevel, PercentageCut = newMemberCut});
-                    break;
-                }
-                case 2:
-                {
-                    rolodex.Add(new Muscle {Name = $"{newMemNam}", SkillLevel = newMemSkillLevel, PercentageCut = newMemberCut});
-                    break;
-                }
-                case 3:
-                {
-                    rolodex.Add(new LockSpecialist {Name = $"{newMemNam}", SkillLevel = newMemSkillLevel, PercentageCut = newMemberCut});
-                    break;
+                    Console.WriteLine("Enter 1, 2, or 3 to select a specialty for the new member. ( 1 - Hacker (disables alarms), 2 - Muscle (disarms guards), 3 - Lock Specialist (cracks vault)): ");
+                    int newMemSpecialty = int.Parse(Console.ReadLine());
+                    Console.Write("Enter the new members skill level (1 - 100): ");
+                    int newMemSkillLevel = int.Parse(Console.ReadLine());
+                    Console.Write("Enter the % cut for the new member: ");
+                    int newMemberCut = int.Parse(Console.ReadLine());
+                    
+                    switch(newMemSpecialty)
+                    {
+                        case 1:
+                        {
+                            rolodex.Add(new Hacker {Name = $"{newMemName}", SkillLevel = newMemSkillLevel, PercentageCut = newMemberCut});
+                            break;
+                        }
+                        case 2:
+                        {
+                            rolodex.Add(new Muscle {Name = $"{newMemName}", SkillLevel = newMemSkillLevel, PercentageCut = newMemberCut});
+                            break;
+                        }
+                        case 3:
+                        {
+                            rolodex.Add(new LockSpecialist {Name = $"{newMemName}", SkillLevel = newMemSkillLevel, PercentageCut = newMemberCut});
+                            break;
+                        }
+                    }
+                    Console.WriteLine("Would you like to add another member? (Y/N) ");
+                    string userResponse = Console.ReadLine();
+                    if(userResponse.ToLower() == "y")
+                    {
+                        AddNewMember();
+                    }
                 }
             }
-            
-            List<Member> MemberList = new List<Member>();
 
-            AddNewMember(); 
+    
+            
+            
 
             Console.WriteLine("How many trial runs would you like to try?");
             int TrialRuns = int.Parse(Console.ReadLine());
@@ -106,9 +119,9 @@ namespace Heist
                 int luckValue = new Random().Next(-10,10);
                 BankDifficultyLevel += luckValue;
 
-                foreach(Member mem in MemberList)
+                foreach(IRobber robber in rolodex)
                 {
-                    TeamSkillSum += mem.SkillLevel;
+                    TeamSkillSum += robber.SkillLevel;
                 }
                 Console.WriteLine($"Your team's combined skill level is {TeamSkillSum}.");
                 Console.WriteLine($"The bank's difficulty level is {BankDifficultyLevel}.");
@@ -128,41 +141,7 @@ namespace Heist
                 TeamSkillSum = 0;
             }
 
-            // void AddNewMember()
-            // {
-            //     Console.WriteLine("Please enter your team member's name");
-            //     string MemberNameFromUser = Console.ReadLine();
-
-            //     if(MemberNameFromUser != "")
-            //     {
-            //         Console.WriteLine("Please enter your team member's skill level");
-            //         int SkillLevelFromUser = int.Parse(Console.ReadLine());
-            //         Console.WriteLine("Please enter your team member's courage factor (0.0 - 2.0)");
-            //         decimal CourageFromUser = decimal.Parse(Console.ReadLine());
-
-            //         Member member = new Member(MemberNameFromUser, SkillLevelFromUser, CourageFromUser);
-            //         MemberList.Add(member);
-
-            //         Console.WriteLine("---------------------------------------------------------------------");
-            //         Console.WriteLine($"{member.Name} has a skill level of {member.SkillLevel} and a courage factor of {member.CourageFactor}.");
-            //         Console.WriteLine("---------------------------------------------------------------------");
-                
-            //         Console.Write("Want to add another Team mate? (y/n)  ");
-            //         string Response = Console.ReadLine();
-            //         if(Response.ToLower() == "y")
-            //         {
-            //             AddNewMember();
-            //         }
-            //         else
-            //         {
-            //             return;
-            //         }
-            //     }
-            //     else
-            //     {
-            //         return;
-            //     }
-            // }          
+            
         
         }
     }
