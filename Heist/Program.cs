@@ -15,43 +15,102 @@ namespace Heist
                 {
                     Name = "Mr. Flop",
                     SkillLevel = 110,
-                    PercentageCut = 10
+                    Cut = 10
                 },
                 new Hacker()
                 {
                     Name = "Dr. Flop",
                     SkillLevel = 130,
-                    PercentageCut = 10
+                    Cut = 10
                 },
                 new Muscle()
                 {
                     Name = "Dr. Strong",
                     SkillLevel = 85,
-                    PercentageCut = 5
+                    Cut = 5
                 },
                 new Muscle()
                 {
                     Name = "Mr. Strong",
                     SkillLevel = 95,
-                    PercentageCut = 5
+                    Cut = 5
                 },
                 new LockSpecialist()
                 {
                     Name = "Dr. Lock",
                     SkillLevel = 125,
-                    PercentageCut = 15
+                    Cut = 15
                 },
                 new LockSpecialist()
                 {
                     Name = "Mr. Lock",
                     SkillLevel = 105,
-                    PercentageCut = 10
+                    Cut = 10
                 }
             };
 
+            Console.WriteLine($"Current Number of Operatives in the Rolodex: {rolodex.Count}");
+            AddNewMember();
+
+            Bank BOA = new Bank()
+            {
+                AlarmScore = new Random().Next(0, 100),
+                VaultScore = new Random().Next(0, 100),
+                SecurityGuardScore = new Random().Next(0, 100),
+                CashOnHand = new Random().Next(50000, 1000000)
+            };
+
+            ReconReport(BOA);
+
+            for(int i = 0; i <= rolodex.length; i++)
+            {
+                Console.WriteLine($"{i}) {rolodex[i].Name} is a {rolodex[i].Specialty} with a skill level of {rolodex[i].SkillLevel}, and their cut is {rolodex[i].Cut}%. ");
+            }
+
+
+            
+
+
+            void ReconReport(Bank bank)
+            {
+                if(bank.AlarmScore > bank.VaultScore && bank.AlarmScore > bank.SecurityGuardScore)
+                {
+                    if(bank.VaultScore > bank.SecurityGuardScore)
+                    {
+                        Console.WriteLine("Most Secure: Alarm. Least Secure: SecurityGuard. ");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Most Secure: Alarm. Least Secure: Vault. ");
+                    }
+                }
+                else if(bank.VaultScore > bank.AlarmScore && bank.VaultScore > bank.SecurityGuardScore)
+                {
+                    if(bank.AlarmScore > bank.SecurityGuardScore)
+                    {
+                        Console.WriteLine("Most Secure: Vault. Least secure: SecurityGuard. ");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Most Secure: Vault. Least secure: Alarm. ");
+                    }
+                }
+                else
+                {
+                    if(bank.AlarmScore > bank.VaultScore)
+                    {
+                        Console.WriteLine("Most Secure: SecurityGuard. Least secure: Vault. ");
+                    }
+                    else 
+                    {
+                        Console.WriteLine("Most Secure: SecurityGuard. Least secure: Alarm. ");
+                    }
+                }
+            }
+            
+            
             void AddNewMember()
             {
-                Console.WriteLine($"Current Number of Operatives in the Rolodex: {rolodex.Count}");
 
                 Console.Write("Enter the name of a new member you would like to add: ");
                 string newMemName = Console.ReadLine();
@@ -69,17 +128,17 @@ namespace Heist
                     {
                         case 1:
                         {
-                            rolodex.Add(new Hacker {Name = $"{newMemName}", SkillLevel = newMemSkillLevel, PercentageCut = newMemberCut});
+                            rolodex.Add(new Hacker {Name = $"{newMemName}", SkillLevel = newMemSkillLevel, Cut = newMemberCut});
                             break;
                         }
                         case 2:
                         {
-                            rolodex.Add(new Muscle {Name = $"{newMemName}", SkillLevel = newMemSkillLevel, PercentageCut = newMemberCut});
+                            rolodex.Add(new Muscle {Name = $"{newMemName}", SkillLevel = newMemSkillLevel, Cut = newMemberCut});
                             break;
                         }
                         case 3:
                         {
-                            rolodex.Add(new LockSpecialist {Name = $"{newMemName}", SkillLevel = newMemSkillLevel, PercentageCut = newMemberCut});
+                            rolodex.Add(new LockSpecialist {Name = $"{newMemName}", SkillLevel = newMemSkillLevel, Cut = newMemberCut});
                             break;
                         }
                     }
@@ -92,54 +151,52 @@ namespace Heist
                 }
             }
 
-    
+
+
+            // Console.WriteLine("How many trial runs would you like to try?");
+            // int TrialRuns = int.Parse(Console.ReadLine());
+            // Console.WriteLine("Please Enter the Banks Difficulty Level.");
+            // int BankDifficultyLevel = int.Parse(Console.ReadLine());
+            // int Mirror = BankDifficultyLevel; //set additional variable equal to initial value of BankDifficultyLevel. 
             
-            
+            // int successfulRuns = 0;
+            // int unsuccessfulRuns = 0;
+            // int TeamSkillSum = 0;
 
-            Console.WriteLine("How many trial runs would you like to try?");
-            int TrialRuns = int.Parse(Console.ReadLine());
-            Console.WriteLine("Please Enter the Banks Difficulty Level.");
-            int BankDifficultyLevel = int.Parse(Console.ReadLine());
-            int Mirror = BankDifficultyLevel; //set additional variable equal to initial value of BankDifficultyLevel. 
-            
-            int successfulRuns = 0;
-            int unsuccessfulRuns = 0;
-            int TeamSkillSum = 0;
-
-            for(int i=0; i<TrialRuns; i++)
-            {
-                AttemptHeist();
-            }
-            Console.WriteLine($"Post-Heist Summary: {successfulRuns} successful heists and {unsuccessfulRuns} failed heists.");
-            Console.WriteLine("---------------------------------------------------");
+            // for(int i=0; i<TrialRuns; i++)
+            // {
+            //     AttemptHeist();
+            // }
+            // Console.WriteLine($"Post-Heist Summary: {successfulRuns} successful heists and {unsuccessfulRuns} failed heists.");
+            // Console.WriteLine("---------------------------------------------------");
 
 
-            void AttemptHeist()
-            {
-                int luckValue = new Random().Next(-10,10);
-                BankDifficultyLevel += luckValue;
+            // void AttemptHeist()
+            // {
+            //     int luckValue = new Random().Next(-10,10);
+            //     BankDifficultyLevel += luckValue;
 
-                foreach(IRobber robber in rolodex)
-                {
-                    TeamSkillSum += robber.SkillLevel;
-                }
-                Console.WriteLine($"Your team's combined skill level is {TeamSkillSum}.");
-                Console.WriteLine($"The bank's difficulty level is {BankDifficultyLevel}.");
-                if(TeamSkillSum > BankDifficultyLevel)
-                {
-                    Console.WriteLine("SUCCESS! Your team's skill level was greater than the bank's difficulty!");
-                    successfulRuns++;
-                }
-                else
-                {
-                    Console.WriteLine("FAILURE! Your team's skill level was less than the bank's difficulty.");
-                    unsuccessfulRuns++;
-                }
-                Console.WriteLine("---------------------------------------------------");
+            //     foreach(IRobber robber in rolodex)
+            //     {
+            //         TeamSkillSum += robber.SkillLevel;
+            //     }
+            //     Console.WriteLine($"Your team's combined skill level is {TeamSkillSum}.");
+            //     Console.WriteLine($"The bank's difficulty level is {BankDifficultyLevel}.");
+            //     if(TeamSkillSum > BankDifficultyLevel)
+            //     {
+            //         Console.WriteLine("SUCCESS! Your team's skill level was greater than the bank's difficulty!");
+            //         successfulRuns++;
+            //     }
+            //     else
+            //     {
+            //         Console.WriteLine("FAILURE! Your team's skill level was less than the bank's difficulty.");
+            //         unsuccessfulRuns++;
+            //     }
+            //     Console.WriteLine("---------------------------------------------------");
 
-                BankDifficultyLevel = Mirror;
-                TeamSkillSum = 0;
-            }
+            //     BankDifficultyLevel = Mirror;
+            //     TeamSkillSum = 0;
+            // }
 
             
         

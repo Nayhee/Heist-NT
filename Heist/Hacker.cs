@@ -5,7 +5,7 @@ namespace Heist
     public class Hacker : Member, IRobber
     {
         //Inherits 1) Name, 2) SkillLevel from Member class.
-        public int PercentageCut {get; set;}
+        public int Cut {get; set;}
         public void PerformSkill(Bank bank)
         {
             bank.AlarmScore = bank.AlarmScore - SkillLevel;
@@ -15,6 +15,7 @@ namespace Heist
                 Console.WriteLine($"Mr. {Name} has successfully disabled the alarm system.");
             }
         }
+        public string Specialty = "Hacker";
     }
 
 }
