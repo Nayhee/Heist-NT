@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Heist
 {
@@ -50,6 +51,7 @@ namespace Heist
             };
 
             Console.WriteLine($"Current Number of Operatives in the Rolodex: {rolodex.Count}");
+            
             AddNewMember();
 
             Bank BOA = new Bank()
@@ -62,17 +64,31 @@ namespace Heist
 
             ReconReport(BOA);
 
-            for(int i = 0; i <= rolodex.length; i++)
+            for(int i = 0; i <= rolodex.Count; i++)
             {
                 Console.WriteLine($"{i}) {rolodex[i].Name} is a {rolodex[i].Specialty} with a skill level of {rolodex[i].SkillLevel}, and their cut is {rolodex[i].Cut}%. ");
+                Console.WriteLine("--------------------------------");
             }
 
+            List<IRobber> crew = new List<IRobber>();
 
-            
+            Console.WriteLine("Enter the index of the operative you'd like to include in your heist.");
+            int opNum = int.Parse(Console.ReadLine());
 
 
+            //what if we just get the index of the highest number, and the index of the lowest number.
+            //we already know what order they in, so if we get those indexes, we know which are what. 
             void ReconReport(Bank bank)
-            {
+            {            
+                // List<int> scoreList = new List<int>()
+                // {
+                //     bank.AlarmScore, bank.VaultScore, bank.SecurityGuardScore
+                // };
+                // int maxNumIndex = scoreList.IndexOf(scoreList.Max());
+                // int minNumIndex = scoreList.IndexOf(scoreList.Min());
+
+
+                
                 if(bank.AlarmScore > bank.VaultScore && bank.AlarmScore > bank.SecurityGuardScore)
                 {
                     if(bank.VaultScore > bank.SecurityGuardScore)
@@ -111,7 +127,6 @@ namespace Heist
             
             void AddNewMember()
             {
-
                 Console.Write("Enter the name of a new member you would like to add: ");
                 string newMemName = Console.ReadLine();
 
@@ -122,23 +137,23 @@ namespace Heist
                     Console.Write("Enter the new members skill level (1 - 100): ");
                     int newMemSkillLevel = int.Parse(Console.ReadLine());
                     Console.Write("Enter the % cut for the new member: ");
-                    int newMemberCut = int.Parse(Console.ReadLine());
+                    int newMemCut = int.Parse(Console.ReadLine());
                     
                     switch(newMemSpecialty)
                     {
                         case 1:
                         {
-                            rolodex.Add(new Hacker {Name = $"{newMemName}", SkillLevel = newMemSkillLevel, Cut = newMemberCut});
+                            rolodex.Add(new Hacker {Name = newMemName, SkillLevel = newMemSkillLevel, Cut = newMemCut});
                             break;
                         }
                         case 2:
                         {
-                            rolodex.Add(new Muscle {Name = $"{newMemName}", SkillLevel = newMemSkillLevel, Cut = newMemberCut});
+                            rolodex.Add(new Muscle {Name = newMemName, SkillLevel = newMemSkillLevel, Cut = newMemCut});
                             break;
                         }
                         case 3:
                         {
-                            rolodex.Add(new LockSpecialist {Name = $"{newMemName}", SkillLevel = newMemSkillLevel, Cut = newMemberCut});
+                            rolodex.Add(new LockSpecialist {Name = newMemName, SkillLevel = newMemSkillLevel, Cut = newMemCut});
                             break;
                         }
                     }

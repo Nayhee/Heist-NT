@@ -8,7 +8,12 @@ namespace Heist
         public int AlarmScore {get; set;}
         public int VaultScore {get; set;}
         public int SecurityGuardScore {get; set;}
-
-        protected bool IsSecure(){return AlarmScore > 0 || VaultScore > 0 || SecurityGuardScore > 0 ? true : false;}
+        public Boolean IsSecure 
+        {
+            get
+            {
+            return AlarmScore > 0 || VaultScore > 0 || SecurityGuardScore > 0 ? true : false;
+            }
+        }
     }
 }
